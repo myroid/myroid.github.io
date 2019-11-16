@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://iamfan.cn/post/del_jiagu_history/</loc>
+    <lastmod>2019-08-02T19:07:14+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://iamfan.cn/categories/</loc>
+    <lastmod>2019-08-02T19:07:14+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://iamfan.cn/de/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://iamfan.cn/fr/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="pl"
+                href="https://iamfan.cn/pl/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="https://iamfan.cn/pt/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://iamfan.cn/categories/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://iamfan.cn/</loc>
+    <lastmod>2019-08-02T19:07:14+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://iamfan.cn/de/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://iamfan.cn/fr/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="pl"
+                href="https://iamfan.cn/pl/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="https://iamfan.cn/pt/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://iamfan.cn/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://iamfan.cn/post/</loc>
+    <lastmod>2019-08-02T19:07:14+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://iamfan.cn/categories/python/</loc>
+    <lastmod>2019-08-02T19:07:14+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://iamfan.cn/tags/python/</loc>
+    <lastmod>2019-08-02T19:07:14+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://iamfan.cn/tags/</loc>
+    <lastmod>2019-08-02T19:07:14+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://iamfan.cn/de/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://iamfan.cn/fr/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="pl"
+                href="https://iamfan.cn/pl/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="https://iamfan.cn/pt/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://iamfan.cn/tags/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://iamfan.cn/categories/kotlin/</loc>
+    <lastmod>2019-06-15T10:25:13+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://iamfan.cn/tags/kotlin/</loc>
+    <lastmod>2019-06-15T10:25:13+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://iamfan.cn/post/birthday_paradox/</loc>
+    <lastmod>2019-06-15T10:25:13+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://iamfan.cn/tags/android/</loc>
+    <lastmod>2018-10-20T11:09:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://iamfan.cn/categories/android/</loc>
+    <lastmod>2018-10-20T11:09:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://iamfan.cn/categories/jenkins/</loc>
+    <lastmod>2018-10-20T11:09:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://iamfan.cn/tags/jenkins/</loc>
+    <lastmod>2018-10-20T11:09:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://iamfan.cn/post/jenkins_video_tutorial/</loc>
+    <lastmod>2018-10-20T11:09:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://iamfan.cn/post/jenkins_upload_to_pgyer/</loc>
+    <lastmod>2017-09-15T10:46:51+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://iamfan.cn/post/jenkins_upload_to_pgyer_en/</loc>
+    <lastmod>2017-09-15T10:45:51+00:00</lastmod>
+  </url>
+  
+</urlset>

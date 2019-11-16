@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Android on Dear Fan</title>
+    <link>https://iamfan.cn/tags/android/</link>
+    <description>Recent content in Android on Dear Fan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 20 Oct 2018 11:09:40 +0000</lastBuildDate>
+    
+	<atom:link href="https://iamfan.cn/tags/android/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>歪脸网Jenkins视频教程</title>
+      <link>https://iamfan.cn/post/jenkins_video_tutorial/</link>
+      <pubDate>Sat, 20 Oct 2018 11:09:40 +0000</pubDate>
+      
+      <guid>https://iamfan.cn/post/jenkins_video_tutorial/</guid>
+      <description> 录制人员：杨凡 录制时间：2018年5月6日   歪脸网Jenkins持续开发平台搭建于2017年3月，至今经过多次优化，已经达到了生产环境的要求。本视频主要针对Jenkins持续开发平台下的Android动态打包、360加固、蒲公英上传分发做一个简单的介绍。
+  点击去Youtube中观看高清视频 
+ </description>
+    </item>
+    
+  </channel>
+</rss>

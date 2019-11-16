@@ -1,0 +1,872 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+<title>上传应用到蒲公英平台的Jenkins插件 - Dear Fan</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+  <meta name="generator" content="Hugo 0.59.1" />
+  <meta itemprop="name" content="上传应用到蒲公英平台的Jenkins插件">
+<meta itemprop="description" content="简单介绍 蒲公英官方网址 https://www.pgyer.com/
+蒲公英平台可以让开发者和企业将应用上传到网站，生成安装链接和二维码用户在手机上打开安装链接，或扫码二维码，即可开始安装！
+因此，这款upload-pgyer的Jenkins插件可以让开发者将apk/ipa文件上传到蒲公英平台！并且这款插件可以将蒲公英平台返回的应用信息解析后注入到Jenkins的全局变量中，这样你就可以很方便的在其他构建步骤中使用这些返回的信息，你可以在Jenkins的job配置页面的构建和构建后操作这两个操作中点击添加构建步骤选择upload to pgyer with apiVx。
+界面截图 参数介绍    需要填写的字段 字段的解释     pgyer uKey (必填) 用户Key，用来标识当前用户的身份，对于同一个蒲公英的注册用户来说，这个值在固定的。点击获取_ukey   pgyer api_key (必填) API Key，用来识别API调用者的身份，如不特别说明，每个接口中都需要含有此参数。对于同一个蒲公英的注册用户来说，这个值在固定的。点击获取_api_key   scandir (必填) 需要上传的apk/ipa文件所在的文件夹或者父文件夹，当前默认路径是${WORKSPACE}，它代表了当前项目的绝对路径。这个功能的实现使用了ant框架的DirectoryScanner类，点击查看DirectoryScanner类，这个字段就是DirectoryScanner类中的basedir方法的参数点击查看basedir方法   file wildcard (必填) 需要上传的apk/ipa文件的名字，支持通配符，就像这样: */Test?/.apk，这个功能的实现使用了ant框架的DirectoryScanner类，点击查看DirectoryScanner类，这个字段就是DirectoryScanner类中的includes方法的参数，点击查看includes方法   installType (选填) 应用安装方式，值为(1,2,3)。1：公开，2：密码安装，3：邀请安装。默认为1公开   password (选填) 设置App安装密码，如果不想设置密码，请传空字符串，或不传。   updateDescription (选填) 版本更新描述，请传空字符串，或不传。   qrcodePath (选填) 如果你需要下载蒲公英返回的二维码，那么这里填写二维码的存储路径，如果你不需要下载，那么你不需要在这里填写任何内容。   envVarsPath (选填) 如果你想存储蒲公英返回的上传信息，那么这里填写保存信息的文件路径，如果你不需要保存，那么你不需要在这里填写任何内容。    运行截图 当你的应用上传成功后，在Jenkins中你就能看到上面图片中的信息。同时，你就可以在其他构建步骤中使用蒲公英返回来的信息，例如我的经验：">
+
+
+<meta itemprop="datePublished" content="2017-09-15T10:46:51&#43;00:00" />
+<meta itemprop="dateModified" content="2017-09-15T10:46:51&#43;00:00" />
+<meta itemprop="wordCount" content="171">
+
+
+
+<meta itemprop="keywords" content="Jenkins," />
+
+  <meta property="og:title" content="上传应用到蒲公英平台的Jenkins插件" />
+<meta property="og:description" content="简单介绍 蒲公英官方网址 https://www.pgyer.com/
+蒲公英平台可以让开发者和企业将应用上传到网站，生成安装链接和二维码用户在手机上打开安装链接，或扫码二维码，即可开始安装！
+因此，这款upload-pgyer的Jenkins插件可以让开发者将apk/ipa文件上传到蒲公英平台！并且这款插件可以将蒲公英平台返回的应用信息解析后注入到Jenkins的全局变量中，这样你就可以很方便的在其他构建步骤中使用这些返回的信息，你可以在Jenkins的job配置页面的构建和构建后操作这两个操作中点击添加构建步骤选择upload to pgyer with apiVx。
+界面截图 参数介绍    需要填写的字段 字段的解释     pgyer uKey (必填) 用户Key，用来标识当前用户的身份，对于同一个蒲公英的注册用户来说，这个值在固定的。点击获取_ukey   pgyer api_key (必填) API Key，用来识别API调用者的身份，如不特别说明，每个接口中都需要含有此参数。对于同一个蒲公英的注册用户来说，这个值在固定的。点击获取_api_key   scandir (必填) 需要上传的apk/ipa文件所在的文件夹或者父文件夹，当前默认路径是${WORKSPACE}，它代表了当前项目的绝对路径。这个功能的实现使用了ant框架的DirectoryScanner类，点击查看DirectoryScanner类，这个字段就是DirectoryScanner类中的basedir方法的参数点击查看basedir方法   file wildcard (必填) 需要上传的apk/ipa文件的名字，支持通配符，就像这样: */Test?/.apk，这个功能的实现使用了ant框架的DirectoryScanner类，点击查看DirectoryScanner类，这个字段就是DirectoryScanner类中的includes方法的参数，点击查看includes方法   installType (选填) 应用安装方式，值为(1,2,3)。1：公开，2：密码安装，3：邀请安装。默认为1公开   password (选填) 设置App安装密码，如果不想设置密码，请传空字符串，或不传。   updateDescription (选填) 版本更新描述，请传空字符串，或不传。   qrcodePath (选填) 如果你需要下载蒲公英返回的二维码，那么这里填写二维码的存储路径，如果你不需要下载，那么你不需要在这里填写任何内容。   envVarsPath (选填) 如果你想存储蒲公英返回的上传信息，那么这里填写保存信息的文件路径，如果你不需要保存，那么你不需要在这里填写任何内容。    运行截图 当你的应用上传成功后，在Jenkins中你就能看到上面图片中的信息。同时，你就可以在其他构建步骤中使用蒲公英返回来的信息，例如我的经验：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://iamfan.cn/post/jenkins_upload_to_pgyer/" />
+<meta property="article:published_time" content="2017-09-15T10:46:51+00:00" />
+<meta property="article:modified_time" content="2017-09-15T10:46:51+00:00" />
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="上传应用到蒲公英平台的Jenkins插件"/>
+<meta name="twitter:description" content="简单介绍 蒲公英官方网址 https://www.pgyer.com/
+蒲公英平台可以让开发者和企业将应用上传到网站，生成安装链接和二维码用户在手机上打开安装链接，或扫码二维码，即可开始安装！
+因此，这款upload-pgyer的Jenkins插件可以让开发者将apk/ipa文件上传到蒲公英平台！并且这款插件可以将蒲公英平台返回的应用信息解析后注入到Jenkins的全局变量中，这样你就可以很方便的在其他构建步骤中使用这些返回的信息，你可以在Jenkins的job配置页面的构建和构建后操作这两个操作中点击添加构建步骤选择upload to pgyer with apiVx。
+界面截图 参数介绍    需要填写的字段 字段的解释     pgyer uKey (必填) 用户Key，用来标识当前用户的身份，对于同一个蒲公英的注册用户来说，这个值在固定的。点击获取_ukey   pgyer api_key (必填) API Key，用来识别API调用者的身份，如不特别说明，每个接口中都需要含有此参数。对于同一个蒲公英的注册用户来说，这个值在固定的。点击获取_api_key   scandir (必填) 需要上传的apk/ipa文件所在的文件夹或者父文件夹，当前默认路径是${WORKSPACE}，它代表了当前项目的绝对路径。这个功能的实现使用了ant框架的DirectoryScanner类，点击查看DirectoryScanner类，这个字段就是DirectoryScanner类中的basedir方法的参数点击查看basedir方法   file wildcard (必填) 需要上传的apk/ipa文件的名字，支持通配符，就像这样: */Test?/.apk，这个功能的实现使用了ant框架的DirectoryScanner类，点击查看DirectoryScanner类，这个字段就是DirectoryScanner类中的includes方法的参数，点击查看includes方法   installType (选填) 应用安装方式，值为(1,2,3)。1：公开，2：密码安装，3：邀请安装。默认为1公开   password (选填) 设置App安装密码，如果不想设置密码，请传空字符串，或不传。   updateDescription (选填) 版本更新描述，请传空字符串，或不传。   qrcodePath (选填) 如果你需要下载蒲公英返回的二维码，那么这里填写二维码的存储路径，如果你不需要下载，那么你不需要在这里填写任何内容。   envVarsPath (选填) 如果你想存储蒲公英返回的上传信息，那么这里填写保存信息的文件路径，如果你不需要保存，那么你不需要在这里填写任何内容。    运行截图 当你的应用上传成功后，在Jenkins中你就能看到上面图片中的信息。同时，你就可以在其他构建步骤中使用蒲公英返回来的信息，例如我的经验："/>
+<meta name="twitter:site" content="@deardadafan"/>
+
+  
+
+  <link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/androidstudio.min.css">
+  
+    
+      <link rel="stylesheet" href="/css/normalize.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css" integrity="sha384-i1LQnF23gykqWXg6jxC2ZbCbUMxyw5gLZY6UiUS98LYV5unm8GWmfkIS6jqJfb4E" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css" />
+      
+      
+      <link rel="stylesheet" href="/css/main.min.6d22afd25890242552a63002032532e43f59b91eea454409de37a6bc3cc90b90.css" integrity="sha256-bSKv0liQJCVSpjACAyUy5D9ZuR7qRUQJ3jemvDzJC5A=">
+      <link rel="stylesheet" href="/css/add-on.css">
+    
+  
+  
+  
+  
+    
+  
+</head>
+
+  <body>
+    
+<header id="site-header">
+  <nav id="site-nav">
+    <h1 class="nav-title">
+      <a href="/">
+        
+          
+            post
+          
+        
+      </a>
+    </h1>
+    <menu id="site-nav-menu" class="flyout-menu">
+      
+        
+          
+          
+            <a href="/" class="link"><i class='fa fa-home'></i> Home</a>
+          
+        
+      
+        
+          
+          
+            <a href="/categories/" class="link"><i class='fas fa-sitemap'></i> Categories</a>
+          
+        
+      
+      <a href="#share-menu" class="share-toggle"><i class="fas fa-share-alt">&nbsp;</i>Share</a>
+      
+
+    </menu>
+    
+
+    <a href="#share-menu" class="share-toggle"><i class="fas fa-share-alt fa-2x">&nbsp;</i></a>
+    <a href="#lang-menu" class="lang-toggle" lang="en">en</a>
+    <a href="#site-nav" class="nav-toggle"><i class="fas fa-bars fa-2x"></i></a>
+  </nav>
+  <menu id="lang-menu" class="flyout-menu">
+  <a href="#" lang="en" class="link active">English (en)</a>
+  
+    
+      
+    
+      
+        <a href="/de" lang="de" class="no-lang link">Deutsch (de)</a>
+      
+    
+      
+        <a href="/fr" lang="fr" class="no-lang link">Français (fr)</a>
+      
+    
+      
+        <a href="/pl" lang="pl" class="no-lang link">Polski (pl)</a>
+      
+    
+      
+        <a href="/pt" lang="pt" class="no-lang link">Português (pt)</a>
+      
+    
+  
+</menu>
+
+  
+    <menu id="share-menu" class="flyout-menu">
+      <h1>Share Post</h1>
+      
+
+
+
+
+  
+    
+    <a href="//twitter.com/share?text=%e4%b8%8a%e4%bc%a0%e5%ba%94%e7%94%a8%e5%88%b0%e8%92%b2%e5%85%ac%e8%8b%b1%e5%b9%b3%e5%8f%b0%e7%9a%84Jenkins%e6%8f%92%e4%bb%b6&amp;url=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer%2f" target="_blank" rel="noopener" class="share-btn twitter">
+        <i class="fab fa-twitter"></i><p>&nbsp;Twitter</p>
+      </a>
+  
+
+  
+      <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer%2f" target="_blank" rel="noopener" class="share-btn facebook">
+        <i class="fab fa-facebook"></i><p>&nbsp;Facebook</p>
+        </a>
+  
+
+  
+    <a href="//www.reddit.com/submit?url=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer%2f&amp;title=%e4%b8%8a%e4%bc%a0%e5%ba%94%e7%94%a8%e5%88%b0%e8%92%b2%e5%85%ac%e8%8b%b1%e5%b9%b3%e5%8f%b0%e7%9a%84Jenkins%e6%8f%92%e4%bb%b6" target="_blank" rel="noopener" class="share-btn reddit">
+          <i class="fab fa-reddit-alien"></i><p>&nbsp;Reddit</p>
+        </a>
+  
+
+  
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer%2f&amp;title=%e4%b8%8a%e4%bc%a0%e5%ba%94%e7%94%a8%e5%88%b0%e8%92%b2%e5%85%ac%e8%8b%b1%e5%b9%b3%e5%8f%b0%e7%9a%84Jenkins%e6%8f%92%e4%bb%b6" target="_blank" rel="noopener" class="share-btn linkedin">
+            <i class="fab fa-linkedin"></i><p>&nbsp;LinkedIn</p>
+          </a>
+  
+
+  
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer%2f&amp;description=%e4%b8%8a%e4%bc%a0%e5%ba%94%e7%94%a8%e5%88%b0%e8%92%b2%e5%85%ac%e8%8b%b1%e5%b9%b3%e5%8f%b0%e7%9a%84Jenkins%e6%8f%92%e4%bb%b6" target="_blank" rel="noopener" class="share-btn pinterest">
+          <i class="fab fa-pinterest-p"></i><p>&nbsp;Pinterest</p>
+        </a>
+  
+
+  
+        <a href="mailto:?subject=Check out this post by %7b%20%20%20%20%20%20%20%20map%5b%5d%7d&amp;body=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer%2f" target="_blank" class="share-btn email" data-proofer-ignore>
+          <i class="fas fa-envelope"></i><p>&nbsp;Email</p>
+        </a>
+  
+
+
+    </menu>
+  
+</header>
+
+    <div id="wrapper">
+      <section id="site-intro">
+  <a href="/"><img src="https://en.gravatar.com/userimage/63120511/a09ba7276a54e4bd199167a6cc91b3af.png" class="circle" width="" alt="Hugo Future Imperfect Slim" /></a>
+  <header>
+    <h1>Passionate Programmer</h1>
+  </header>
+  <main>
+    <p>Another fine, responsive site template by <a href='http://html5up.net'>HTML5 UP</a>.</p>
+  </main>
+  
+    <footer>
+      <ul class="socnet-icons">
+        
+
+        <li><a href="//github.com/myroid" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//facebook.com/myroid" target="_blank" rel="noopener" title="Facebook" class="fab fa-facebook"></a></li>
+
+
+
+
+
+
+<li><a href="weixin://contacts/profile/myroid" target="_blank" rel="noopener" title="WeChat" class="fab fa-weixin"></a></li>
+<li><a href="//wpa.qq.com/msgrd?v=3&amp;uin=383094521&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener" title="QQ" class="fab fa-qq"></a></li>
+<li><a href="//instagram.com/deardadafan" target="_blank" rel="noopener" title="Instagram" class="fab fa-instagram"></a></li>
+
+<li><a href="//twitter.com/deardadafan" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+<li><a href="mailto:myroid@foxmail.com" target="_blank" title="Email" class="far fa-envelope"></a></li>
+
+      </ul>
+    </footer>
+  
+</section>
+
+      <main id="site-main">
+        <article class="post">
+  <header>
+  <div class="title">
+    
+        <h2><a href="/post/jenkins_upload_to_pgyer/">上传应用到蒲公英平台的Jenkins插件</a></h2>
+    
+    
+</div>
+  <div class="meta">
+    <time class="published" datetime="2017-09-15 10:46:51 &#43;0000 UTC">
+      September 15, 2017
+    </time>
+    <span class="author"></span>
+    
+      <p>1 minute read</p>
+    
+  </div>
+</header>
+
+  <section id="socnet-share">
+    
+
+
+
+
+  
+    
+    <a href="//twitter.com/share?text=%e4%b8%8a%e4%bc%a0%e5%ba%94%e7%94%a8%e5%88%b0%e8%92%b2%e5%85%ac%e8%8b%b1%e5%b9%b3%e5%8f%b0%e7%9a%84Jenkins%e6%8f%92%e4%bb%b6&amp;url=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer%2f" target="_blank" rel="noopener" class="share-btn twitter">
+        <i class="fab fa-twitter"></i><p>&nbsp;Twitter</p>
+      </a>
+  
+
+  
+      <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer%2f" target="_blank" rel="noopener" class="share-btn facebook">
+        <i class="fab fa-facebook"></i><p>&nbsp;Facebook</p>
+        </a>
+  
+
+  
+    <a href="//www.reddit.com/submit?url=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer%2f&amp;title=%e4%b8%8a%e4%bc%a0%e5%ba%94%e7%94%a8%e5%88%b0%e8%92%b2%e5%85%ac%e8%8b%b1%e5%b9%b3%e5%8f%b0%e7%9a%84Jenkins%e6%8f%92%e4%bb%b6" target="_blank" rel="noopener" class="share-btn reddit">
+          <i class="fab fa-reddit-alien"></i><p>&nbsp;Reddit</p>
+        </a>
+  
+
+  
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer%2f&amp;title=%e4%b8%8a%e4%bc%a0%e5%ba%94%e7%94%a8%e5%88%b0%e8%92%b2%e5%85%ac%e8%8b%b1%e5%b9%b3%e5%8f%b0%e7%9a%84Jenkins%e6%8f%92%e4%bb%b6" target="_blank" rel="noopener" class="share-btn linkedin">
+            <i class="fab fa-linkedin"></i><p>&nbsp;LinkedIn</p>
+          </a>
+  
+
+  
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer%2f&amp;description=%e4%b8%8a%e4%bc%a0%e5%ba%94%e7%94%a8%e5%88%b0%e8%92%b2%e5%85%ac%e8%8b%b1%e5%b9%b3%e5%8f%b0%e7%9a%84Jenkins%e6%8f%92%e4%bb%b6" target="_blank" rel="noopener" class="share-btn pinterest">
+          <i class="fab fa-pinterest-p"></i><p>&nbsp;Pinterest</p>
+        </a>
+  
+
+  
+        <a href="mailto:?subject=Check out this post by %7b%20%20%20%20%20%20%20%20map%5b%5d%7d&amp;body=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer%2f" target="_blank" class="share-btn email" data-proofer-ignore>
+          <i class="fas fa-envelope"></i><p>&nbsp;Email</p>
+        </a>
+  
+
+
+  </section>
+  
+
+  <div class="content">
+    
+
+<h3 id="简单介绍">简单介绍</h3>
+
+<p>蒲公英官方网址 <a href="https://www.pgyer.com/">https://www.pgyer.com/</a></p>
+
+<p>蒲公英平台可以让开发者和企业将应用上传到网站，生成安装链接和二维码用户在手机上打开安装链接，或扫码二维码，即可开始安装！</p>
+
+<p>因此，这款upload-pgyer的Jenkins插件可以让开发者将apk/ipa文件上传到蒲公英平台！<strong>并且这款插件可以将蒲公英平台返回的应用信息解析后注入到Jenkins的全局变量中，这样你就可以很方便的在其他构建步骤中使用这些返回的信息</strong>，你可以在Jenkins的job配置页面的<code>构建</code>和<code>构建后操作</code>这两个操作中点击添加构建步骤选择<code>upload to pgyer with apiVx</code>。</p>
+
+<h3 id="界面截图">界面截图</h3>
+
+<p><img src="https://blog-1251473749.cos.ap-beijing.myqcloud.com/jenkins_upload_pgyer/upload-pgyer-1.png" alt="" /></p>
+
+<h3 id="参数介绍">参数介绍</h3>
+
+<table>
+<thead>
+<tr>
+<th align="right">需要填写的字段</th>
+<th align="left">字段的解释</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="right">pgyer uKey</td>
+<td align="left"><code>(必填)</code> 用户Key，用来标识当前用户的身份，<br/>对于同一个蒲公英的注册用户来说，这个值在固定的。<br/><a href="https://www.pgyer.com/account/api">点击获取_ukey</a></td>
+</tr>
+
+<tr>
+<td align="right">pgyer api_key</td>
+<td align="left">(必填) API Key，用来识别API调用者的身份，<br/>如不特别说明，每个接口中都需要含有此参数。<br/>对于同一个蒲公英的注册用户来说，这个值在固定的。<br/><a href="https://www.pgyer.com/account/api">点击获取_api_key</a></td>
+</tr>
+
+<tr>
+<td align="right">scandir</td>
+<td align="left"><code>(必填)</code> 需要上传的apk/ipa文件所在的文件夹或者父文件夹，<br/>当前默认路径是<code>${WORKSPACE}</code>，它代表了当前项目的绝对路径。<br/>这个功能的实现使用了ant框架的DirectoryScanner类，<a href="https://ant.apache.org/manual/api/org/apache/tools/ant/DirectoryScanner.html">点击查看DirectoryScanner类</a>，<br/>这个字段就是DirectoryScanner类中的basedir方法的参数<a href="https://ant.apache.org/manual/api/org/apache/tools/ant/DirectoryScanner.html#basedir">点击查看basedir方法</a></td>
+</tr>
+
+<tr>
+<td align="right">file wildcard</td>
+<td align="left"><code>(必填)</code> 需要上传的apk/ipa文件的名字，支持通配符，<br/>就像这样: *<em>/Test?/</em>.apk，<br/>这个功能的实现使用了ant框架的DirectoryScanner类，<a href="https://ant.apache.org/manual/api/org/apache/tools/ant/DirectoryScanner.html">点击查看DirectoryScanner类</a>，<br/>这个字段就是DirectoryScanner类中的includes方法的参数，<a href="https://ant.apache.org/manual/api/org/apache/tools/ant/DirectoryScanner.html#includes">点击查看includes方法</a></td>
+</tr>
+
+<tr>
+<td align="right">installType</td>
+<td align="left"><code>(选填)</code> 应用安装方式，值为(1,2,3)。<br/>1：公开，2：密码安装，3：邀请安装。<br/>默认为1公开</td>
+</tr>
+
+<tr>
+<td align="right">password</td>
+<td align="left"><code>(选填)</code> 设置App安装密码，如果不想设置密码，请传空字符串，或不传。</td>
+</tr>
+
+<tr>
+<td align="right">updateDescription</td>
+<td align="left"><code>(选填)</code> 版本更新描述，请传空字符串，或不传。</td>
+</tr>
+
+<tr>
+<td align="right">qrcodePath</td>
+<td align="left"><code>(选填)</code> 如果你需要下载蒲公英返回的二维码，那么这里填写二维码的存储路径，<br/>如果你不需要下载，那么你不需要在这里填写任何内容。</td>
+</tr>
+
+<tr>
+<td align="right">envVarsPath</td>
+<td align="left"><code>(选填)</code> 如果你想存储蒲公英返回的上传信息，那么这里填写保存信息的文件路径，<br/>如果你不需要保存，那么你不需要在这里填写任何内容。</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="运行截图">运行截图</h3>
+
+<p><img src="https://blog-1251473749.cos.ap-beijing.myqcloud.com/jenkins_upload_pgyer/jenkins_log.png" alt="" /></p>
+
+<p>当你的应用上传成功后，在Jenkins中你就能看到上面图片中的信息。同时，你就可以在其他构建步骤中使用蒲公英返回来的信息，例如我的经验：</p>
+
+<p><img src="https://blog-1251473749.cos.ap-beijing.myqcloud.com/jenkins_upload_pgyer/upload-pgyer-3.png" alt="" /></p>
+
+<h3 id="蒲公英apiv1-返回字段说明">蒲公英APIV1 返回字段说明</h3>
+
+<table>
+<thead>
+<tr>
+<th align="right">可以使用的环境变量</th>
+<th align="left">作用或解释</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="right">appKey</td>
+<td align="left">App Key</td>
+</tr>
+
+<tr>
+<td align="right">appType</td>
+<td align="left">应用类型（1:iOS; 2:Android）</td>
+</tr>
+
+<tr>
+<td align="right">appIsLastest</td>
+<td align="left">是否是最新版（1:是; 2:否）</td>
+</tr>
+
+<tr>
+<td align="right">appFileSize</td>
+<td align="left">App 文件大小</td>
+</tr>
+
+<tr>
+<td align="right">appName</td>
+<td align="left">应用名称</td>
+</tr>
+
+<tr>
+<td align="right">appVersion</td>
+<td align="left">版本号</td>
+</tr>
+
+<tr>
+<td align="right">appVersionNo</td>
+<td align="left">适用于Android的版本编号，iOS始终为0</td>
+</tr>
+
+<tr>
+<td align="right">appBuildVersion</td>
+<td align="left">蒲公英生成的用于区分历史版本的build号</td>
+</tr>
+
+<tr>
+<td align="right">appIdentifier</td>
+<td align="left">应用程序包名，iOS为BundleId，Android为包名</td>
+</tr>
+
+<tr>
+<td align="right">appIcon</td>
+<td align="left">应用的Icon图标key，访问地址为 <a href="http://o1wh05aeh.qnssl.com/image/view/app_icons/[appIcon">http://o1wh05aeh.qnssl.com/image/view/app_icons/[appIcon</a>]</td>
+</tr>
+
+<tr>
+<td align="right">appDescription</td>
+<td align="left">应用介绍</td>
+</tr>
+
+<tr>
+<td align="right">appUpdateDescription</td>
+<td align="left">应用更新说明</td>
+</tr>
+
+<tr>
+<td align="right">appScreenshots</td>
+<td align="left">应用截图的key，获取地址为 <a href="http://o1whyeemo.qnssl.com/image/view/app_screenshots/[appScreenshots">http://o1whyeemo.qnssl.com/image/view/app_screenshots/[appScreenshots</a>]</td>
+</tr>
+
+<tr>
+<td align="right">appShortcutUrl</td>
+<td align="left">应用短链接</td>
+</tr>
+
+<tr>
+<td align="right">appCreated</td>
+<td align="left">应用上传时间</td>
+</tr>
+
+<tr>
+<td align="right">appUpdated</td>
+<td align="left">应用更新时间</td>
+</tr>
+
+<tr>
+<td align="right">appQRCodeURL</td>
+<td align="left">应用二维码地址</td>
+</tr>
+
+<tr>
+<td align="right">appPgyerURL</td>
+<td align="left">应用主页地址</td>
+</tr>
+
+<tr>
+<td align="right">appBuildURL</td>
+<td align="left">本次上传的应用主页</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="蒲公英apiv2-返回字段说明">蒲公英APIV2 返回字段说明</h3>
+
+<table>
+<thead>
+<tr>
+<th align="right">可以使用的环境变量</th>
+<th align="left">作用或解释</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="right">buildKey</td>
+<td align="left">Build Key是唯一标识应用的索引ID</td>
+</tr>
+
+<tr>
+<td align="right">buildType</td>
+<td align="left">应用类型（1:iOS; 2:Android）</td>
+</tr>
+
+<tr>
+<td align="right">buildIsFirst</td>
+<td align="left">是否是第一个App（1:是; 2:否）</td>
+</tr>
+
+<tr>
+<td align="right">buildIsLastest</td>
+<td align="left">是否是最新版（1:是; 2:否）</td>
+</tr>
+
+<tr>
+<td align="right">buildFileSize</td>
+<td align="left">App 文件大小</td>
+</tr>
+
+<tr>
+<td align="right">buildName</td>
+<td align="left">应用名称</td>
+</tr>
+
+<tr>
+<td align="right">buildVersion</td>
+<td align="left">版本号, 默认为1.0 (是应用向用户宣传时候用到的标识，例如：1.1、8.2.1等。)</td>
+</tr>
+
+<tr>
+<td align="right">buildVersionNo</td>
+<td align="left">上传包的版本编号，默认为1 (即编译的版本号，一般来说，编译一次会变动一次这个版本号, 在 Android 上叫 Version Code。对于 iOS 来说，是字符串类型；对于 Android 来说是一个整数。例如：1001，28等。)</td>
+</tr>
+
+<tr>
+<td align="right">buildBuildVersion</td>
+<td align="left">蒲公英生成的用于区分历史版本的build号</td>
+</tr>
+
+<tr>
+<td align="right">buildIdentifier</td>
+<td align="left">应用程序包名，iOS为BundleId，Android为包名</td>
+</tr>
+
+<tr>
+<td align="right">buildIcon</td>
+<td align="left">应用的Icon图标key，访问地址为 <a href="https://www.pgyer.com/image/view/app_icons/[应用的Icon图标key">https://www.pgyer.com/image/view/app_icons/[应用的Icon图标key</a>]</td>
+</tr>
+
+<tr>
+<td align="right">buildDescription</td>
+<td align="left">应用介绍</td>
+</tr>
+
+<tr>
+<td align="right">buildUpdateDescription</td>
+<td align="left">应用更新说明</td>
+</tr>
+
+<tr>
+<td align="right">buildScreenShots</td>
+<td align="left">应用截图的key，获取地址为 <a href="https://www.pgyer.com/image/view/app_screenshots/[应用截图的key">https://www.pgyer.com/image/view/app_screenshots/[应用截图的key</a>]</td>
+</tr>
+
+<tr>
+<td align="right">buildShortcutUrl</td>
+<td align="left">应用短链接</td>
+</tr>
+
+<tr>
+<td align="right">buildCreated</td>
+<td align="left">应用上传时间</td>
+</tr>
+
+<tr>
+<td align="right">buildUpdated</td>
+<td align="left">应用更新时间</td>
+</tr>
+
+<tr>
+<td align="right">buildQRCodeURL</td>
+<td align="left">应用二维码地址</td>
+</tr>
+
+<tr>
+<td align="right">appPgyerURL</td>
+<td align="left">应用主页地址</td>
+</tr>
+
+<tr>
+<td align="right">appBuildURL</td>
+<td align="left">本次上传的应用主页</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="change-log">Change Log</h3>
+
+<p>版本 1.31(2018-05-07)</p>
+
+<ul>
+<li>升级Gson 2.8.4</li>
+<li>优化上传日志</li>
+<li>更换readme.md图片地址</li>
+</ul>
+
+<p>版本 1.30(2018-04-16）</p>
+
+<ul>
+<li>移除Jsoup，并引入okhttp作为网络库</li>
+<li>增加文件上传进度</li>
+<li>增加蒲公英<a href="https://www.pgyer.com/doc/view/api#uploadApp">APIV2</a></li>
+</ul>
+
+  </div>
+  <footer>
+    <ul class="stats">
+  
+    
+    
+      <li class="categories">
+        <ul>
+          
+            
+            <li><a class="article-category-link" href="https://iamfan.cn/categories/jenkins">Jenkins</a></li>
+          
+        </ul>
+      </li>
+    
+  
+  
+    
+    
+      <li class="tags">
+        <ul>
+          
+            
+            <li><a class="article-category-link" href="https://iamfan.cn/tags/jenkins">Jenkins</a></li>
+          
+        </ul>
+      </li>
+    
+  
+</ul>
+
+  </footer>
+</article>
+
+
+<div class="pagination">
+  
+    <a href="/post/jenkins_upload_to_pgyer_en/" class="button"><div class="previous"><div>Jenkins Upload To Pgyer</div></div></a>
+  
+  
+    <a href="/post/jenkins_video_tutorial/" class="button"><div class="next"><div>歪脸网Jenkins视频教程</div></div></a>
+  
+</div>
+
+
+      </main>
+      <section id="site-sidebar">
+  
+    <section id="recent-posts">
+      <header>
+        <h1>Recent posts</h1>
+      </header>
+      
+      <article class="mini-post">
+        <section>
+          
+
+        </section>
+        <header>
+          <h1><a href="/post/del_jiagu_history/">360加固记录批量删除脚本</a></h1>
+          <time class="published" datetime="">August 2, 2019</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+        <section>
+          
+
+        </section>
+        <header>
+          <h1><a href="/post/">Post</a></h1>
+          <time class="published" datetime="">August 2, 2019</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+        <section>
+          
+
+        </section>
+        <header>
+          <h1><a href="/post/birthday_paradox/">生日悖论</a></h1>
+          <time class="published" datetime="">June 15, 2019</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+        <section>
+          
+
+        </section>
+        <header>
+          <h1><a href="/post/jenkins_video_tutorial/">歪脸网Jenkins视频教程</a></h1>
+          <time class="published" datetime="">October 20, 2018</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+        <section>
+          
+
+        </section>
+        <header>
+          <h1><a href="/post/jenkins_upload_to_pgyer/">上传应用到蒲公英平台的Jenkins插件</a></h1>
+          <time class="published" datetime="">September 15, 2017</time>
+        </header>
+      </article>
+      
+      
+        <a href="/blog/" class="button">See more</a>
+      
+    </section>
+  
+
+  
+    
+      <section id="categories">
+        <header>
+          <h1><a href="/categories">Categories</a></h1>
+        </header>
+        <ul>
+          
+            
+          
+          
+          <li>
+            
+              <a href="/categories/jenkins/">jenkins<span class="count">3</span></a>
+            
+          
+          <li>
+            
+              <a href="/categories/android/">android<span class="count">1</span></a>
+            
+          
+          <li>
+            
+              <a href="/categories/kotlin/">kotlin<span class="count">1</span></a>
+            
+          
+          <li>
+            
+              <a href="/categories/python/">python<span class="count">1</span></a>
+            
+          
+          </li>
+        </ul>
+      </section>
+    
+  
+
+  <section id="mini-bio">
+    <header>
+      <h1>About</h1>
+    </header>
+    <p>PASSIONATE PROGRAMMER</p>
+    <footer>
+      <a href="/about" class="button">Learn More</a>
+    </footer>
+  </section>
+</section>
+
+      <footer id="site-footer">
+  
+      <ul class="socnet-icons">
+        
+
+        <li><a href="//github.com/myroid" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//facebook.com/myroid" target="_blank" rel="noopener" title="Facebook" class="fab fa-facebook"></a></li>
+
+
+
+
+
+
+<li><a href="weixin://contacts/profile/myroid" target="_blank" rel="noopener" title="WeChat" class="fab fa-weixin"></a></li>
+<li><a href="//wpa.qq.com/msgrd?v=3&amp;uin=383094521&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener" title="QQ" class="fab fa-qq"></a></li>
+<li><a href="//instagram.com/deardadafan" target="_blank" rel="noopener" title="Instagram" class="fab fa-instagram"></a></li>
+
+<li><a href="//twitter.com/deardadafan" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+<li><a href="mailto:myroid@foxmail.com" target="_blank" title="Email" class="far fa-envelope"></a></li>
+
+      </ul>
+  
+  <p class="copyright">
+    
+      &copy; 2019
+      
+        Dear Fan
+      
+    . <br>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.59.1' target='_blank' rel='noopener'>Hugo</a>
+  </p>
+</footer>
+<a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
+
+      
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/html.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/css.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/js.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/toml.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+
+  
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+  <script src=/js/util.js></script>
+  <script src=/js/main.js></script>
+  <script src=/js/add-on.js></script>
+  
+
+
+
+
+
+    </div>
+  </body>
+</html>

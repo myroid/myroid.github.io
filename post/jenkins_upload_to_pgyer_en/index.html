@@ -1,0 +1,872 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+<title>Jenkins Upload To Pgyer - Dear Fan</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+  <meta name="generator" content="Hugo 0.59.1" />
+  <meta itemprop="name" content="Jenkins Upload To Pgyer">
+<meta itemprop="description" content="A simple introduction 中文文档
+Pgyer&rsquo;s official website is https://www.pgyer.com/
+Pgyer can upload the application to the site, generate installation link and qr code user to open the installation link, or scan code qr code, can start installation.
+So this plugin can be uploaded to the pgyer platform！And it can put the fields returned by pgyer into an environment variable, which you can use in other build steps, You can select upload to pgyer by adding build steps or adding post-build steps.">
+
+
+<meta itemprop="datePublished" content="2017-09-15T10:45:51&#43;00:00" />
+<meta itemprop="dateModified" content="2017-09-15T10:45:51&#43;00:00" />
+<meta itemprop="wordCount" content="707">
+
+
+
+<meta itemprop="keywords" content="Jenkins," />
+
+  <meta property="og:title" content="Jenkins Upload To Pgyer" />
+<meta property="og:description" content="A simple introduction 中文文档
+Pgyer&rsquo;s official website is https://www.pgyer.com/
+Pgyer can upload the application to the site, generate installation link and qr code user to open the installation link, or scan code qr code, can start installation.
+So this plugin can be uploaded to the pgyer platform！And it can put the fields returned by pgyer into an environment variable, which you can use in other build steps, You can select upload to pgyer by adding build steps or adding post-build steps." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://iamfan.cn/post/jenkins_upload_to_pgyer_en/" />
+<meta property="article:published_time" content="2017-09-15T10:45:51+00:00" />
+<meta property="article:modified_time" content="2017-09-15T10:45:51+00:00" />
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Jenkins Upload To Pgyer"/>
+<meta name="twitter:description" content="A simple introduction 中文文档
+Pgyer&rsquo;s official website is https://www.pgyer.com/
+Pgyer can upload the application to the site, generate installation link and qr code user to open the installation link, or scan code qr code, can start installation.
+So this plugin can be uploaded to the pgyer platform！And it can put the fields returned by pgyer into an environment variable, which you can use in other build steps, You can select upload to pgyer by adding build steps or adding post-build steps."/>
+<meta name="twitter:site" content="@deardadafan"/>
+
+  
+
+  <link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/androidstudio.min.css">
+  
+    
+      <link rel="stylesheet" href="/css/normalize.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css" integrity="sha384-i1LQnF23gykqWXg6jxC2ZbCbUMxyw5gLZY6UiUS98LYV5unm8GWmfkIS6jqJfb4E" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css" />
+      
+      
+      <link rel="stylesheet" href="/css/main.min.6d22afd25890242552a63002032532e43f59b91eea454409de37a6bc3cc90b90.css" integrity="sha256-bSKv0liQJCVSpjACAyUy5D9ZuR7qRUQJ3jemvDzJC5A=">
+      <link rel="stylesheet" href="/css/add-on.css">
+    
+  
+  
+  
+  
+    
+  
+</head>
+
+  <body>
+    
+<header id="site-header">
+  <nav id="site-nav">
+    <h1 class="nav-title">
+      <a href="/">
+        
+          
+            post
+          
+        
+      </a>
+    </h1>
+    <menu id="site-nav-menu" class="flyout-menu">
+      
+        
+          
+          
+            <a href="/" class="link"><i class='fa fa-home'></i> Home</a>
+          
+        
+      
+        
+          
+          
+            <a href="/categories/" class="link"><i class='fas fa-sitemap'></i> Categories</a>
+          
+        
+      
+      <a href="#share-menu" class="share-toggle"><i class="fas fa-share-alt">&nbsp;</i>Share</a>
+      
+
+    </menu>
+    
+
+    <a href="#share-menu" class="share-toggle"><i class="fas fa-share-alt fa-2x">&nbsp;</i></a>
+    <a href="#lang-menu" class="lang-toggle" lang="en">en</a>
+    <a href="#site-nav" class="nav-toggle"><i class="fas fa-bars fa-2x"></i></a>
+  </nav>
+  <menu id="lang-menu" class="flyout-menu">
+  <a href="#" lang="en" class="link active">English (en)</a>
+  
+    
+      
+    
+      
+        <a href="/de" lang="de" class="no-lang link">Deutsch (de)</a>
+      
+    
+      
+        <a href="/fr" lang="fr" class="no-lang link">Français (fr)</a>
+      
+    
+      
+        <a href="/pl" lang="pl" class="no-lang link">Polski (pl)</a>
+      
+    
+      
+        <a href="/pt" lang="pt" class="no-lang link">Português (pt)</a>
+      
+    
+  
+</menu>
+
+  
+    <menu id="share-menu" class="flyout-menu">
+      <h1>Share Post</h1>
+      
+
+
+
+
+  
+    
+    <a href="//twitter.com/share?text=Jenkins%20Upload%20To%20Pgyer&amp;url=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer_en%2f" target="_blank" rel="noopener" class="share-btn twitter">
+        <i class="fab fa-twitter"></i><p>&nbsp;Twitter</p>
+      </a>
+  
+
+  
+      <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer_en%2f" target="_blank" rel="noopener" class="share-btn facebook">
+        <i class="fab fa-facebook"></i><p>&nbsp;Facebook</p>
+        </a>
+  
+
+  
+    <a href="//www.reddit.com/submit?url=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer_en%2f&amp;title=Jenkins%20Upload%20To%20Pgyer" target="_blank" rel="noopener" class="share-btn reddit">
+          <i class="fab fa-reddit-alien"></i><p>&nbsp;Reddit</p>
+        </a>
+  
+
+  
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer_en%2f&amp;title=Jenkins%20Upload%20To%20Pgyer" target="_blank" rel="noopener" class="share-btn linkedin">
+            <i class="fab fa-linkedin"></i><p>&nbsp;LinkedIn</p>
+          </a>
+  
+
+  
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer_en%2f&amp;description=Jenkins%20Upload%20To%20Pgyer" target="_blank" rel="noopener" class="share-btn pinterest">
+          <i class="fab fa-pinterest-p"></i><p>&nbsp;Pinterest</p>
+        </a>
+  
+
+  
+        <a href="mailto:?subject=Check out this post by %7b%20%20%20%20%20%20%20%20map%5b%5d%7d&amp;body=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer_en%2f" target="_blank" class="share-btn email" data-proofer-ignore>
+          <i class="fas fa-envelope"></i><p>&nbsp;Email</p>
+        </a>
+  
+
+
+    </menu>
+  
+</header>
+
+    <div id="wrapper">
+      <section id="site-intro">
+  <a href="/"><img src="https://en.gravatar.com/userimage/63120511/a09ba7276a54e4bd199167a6cc91b3af.png" class="circle" width="" alt="Hugo Future Imperfect Slim" /></a>
+  <header>
+    <h1>Passionate Programmer</h1>
+  </header>
+  <main>
+    <p>Another fine, responsive site template by <a href='http://html5up.net'>HTML5 UP</a>.</p>
+  </main>
+  
+    <footer>
+      <ul class="socnet-icons">
+        
+
+        <li><a href="//github.com/myroid" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//facebook.com/myroid" target="_blank" rel="noopener" title="Facebook" class="fab fa-facebook"></a></li>
+
+
+
+
+
+
+<li><a href="weixin://contacts/profile/myroid" target="_blank" rel="noopener" title="WeChat" class="fab fa-weixin"></a></li>
+<li><a href="//wpa.qq.com/msgrd?v=3&amp;uin=383094521&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener" title="QQ" class="fab fa-qq"></a></li>
+<li><a href="//instagram.com/deardadafan" target="_blank" rel="noopener" title="Instagram" class="fab fa-instagram"></a></li>
+
+<li><a href="//twitter.com/deardadafan" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+<li><a href="mailto:myroid@foxmail.com" target="_blank" title="Email" class="far fa-envelope"></a></li>
+
+      </ul>
+    </footer>
+  
+</section>
+
+      <main id="site-main">
+        <article class="post">
+  <header>
+  <div class="title">
+    
+        <h2><a href="/post/jenkins_upload_to_pgyer_en/">Jenkins Upload To Pgyer</a></h2>
+    
+    
+</div>
+  <div class="meta">
+    <time class="published" datetime="2017-09-15 10:45:51 &#43;0000 UTC">
+      September 15, 2017
+    </time>
+    <span class="author"></span>
+    
+      <p>4 minutes read</p>
+    
+  </div>
+</header>
+
+  <section id="socnet-share">
+    
+
+
+
+
+  
+    
+    <a href="//twitter.com/share?text=Jenkins%20Upload%20To%20Pgyer&amp;url=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer_en%2f" target="_blank" rel="noopener" class="share-btn twitter">
+        <i class="fab fa-twitter"></i><p>&nbsp;Twitter</p>
+      </a>
+  
+
+  
+      <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer_en%2f" target="_blank" rel="noopener" class="share-btn facebook">
+        <i class="fab fa-facebook"></i><p>&nbsp;Facebook</p>
+        </a>
+  
+
+  
+    <a href="//www.reddit.com/submit?url=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer_en%2f&amp;title=Jenkins%20Upload%20To%20Pgyer" target="_blank" rel="noopener" class="share-btn reddit">
+          <i class="fab fa-reddit-alien"></i><p>&nbsp;Reddit</p>
+        </a>
+  
+
+  
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer_en%2f&amp;title=Jenkins%20Upload%20To%20Pgyer" target="_blank" rel="noopener" class="share-btn linkedin">
+            <i class="fab fa-linkedin"></i><p>&nbsp;LinkedIn</p>
+          </a>
+  
+
+  
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer_en%2f&amp;description=Jenkins%20Upload%20To%20Pgyer" target="_blank" rel="noopener" class="share-btn pinterest">
+          <i class="fab fa-pinterest-p"></i><p>&nbsp;Pinterest</p>
+        </a>
+  
+
+  
+        <a href="mailto:?subject=Check out this post by %7b%20%20%20%20%20%20%20%20map%5b%5d%7d&amp;body=https%3a%2f%2fiamfan.cn%2fpost%2fjenkins_upload_to_pgyer_en%2f" target="_blank" class="share-btn email" data-proofer-ignore>
+          <i class="fas fa-envelope"></i><p>&nbsp;Email</p>
+        </a>
+  
+
+
+  </section>
+  
+
+  <div class="content">
+    
+
+<h3 id="a-simple-introduction">A simple introduction</h3>
+
+<p><a href="./README_cn.md">中文文档</a></p>
+
+<p>Pgyer&rsquo;s official website is <a href="https://www.pgyer.com/">https://www.pgyer.com/</a></p>
+
+<p>Pgyer can upload the application to the site, generate installation link and qr code user to open the installation link, or scan code qr code, can start installation.</p>
+
+<p>So this plugin can be uploaded to the pgyer platform！<strong>And it can put the fields returned by pgyer into an environment variable, which you can use in other build steps</strong>, You can select <code>upload to pgyer</code> by adding build steps or adding post-build steps.</p>
+
+<h3 id="screenshot">Screenshot</h3>
+
+<p><img src="https://blog-1251473749.cos.ap-beijing.myqcloud.com/jenkins_upload_pgyer/upload-pgyer-1.png" alt="" /></p>
+
+<h3 id="introduction-to-parameters">Introduction to parameters</h3>
+
+<table>
+<thead>
+<tr>
+<th align="right">field</th>
+<th align="left">explanation</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="right">pgyer uKey</td>
+<td align="left"><code>(Required)</code> User Key, used to identify the current user&rsquo;s identity, <br/>for the same pgyer registered users, the value of the fixed!<br/><a href="https://www.pgyer.com/account/api">Click to get pgyer uKey</a></td>
+</tr>
+
+<tr>
+<td align="right">pgyer api_key</td>
+<td align="left"><code>(Required)</code> API Key, used to identify the identity of the API caller, <br/>if not specified, each interface needs to contain this parameter.<br/>For the same pgyer registered users, this value is fixed.<br/><a href="https://www.pgyer.com/account/api">Click to get pgyer api_key</a></td>
+</tr>
+
+<tr>
+<td align="right">scandir</td>
+<td align="left"><code>(Required)</code> need to upload ipa or apk file base dir path!<br/>  The default is ${WORKSPACE}, It means the path of the current project!<br/>It is using ant&rsquo;s DirectoryScanner class, <a href="https://ant.apache.org/manual/api/org/apache/tools/ant/DirectoryScanner.html">click to see DirectoryScanner class</a><br/><strong>It is equivalent to the parameters of the basedir method in the DirectoryScanner class!</strong> <a href="https://ant.apache.org/manual/api/org/apache/tools/ant/DirectoryScanner.html#basedir">click to see basedir method</a></td>
+</tr>
+
+<tr>
+<td align="right">file wildcard</td>
+<td align="left"><code>(Required)</code> need to upload ipa or apk file name, Support wildcards,<br/>like this: *<em>/Test?/</em>.apk<br/>It is using ant&rsquo;s DirectoryScanner class, <a href="https://ant.apache.org/manual/api/org/apache/tools/ant/DirectoryScanner.html">click to see DirectoryScanner class</a><br/> <strong>It is equivalent to the parameters of the includes method in the DirectoryScanner class!</strong> <a href="https://ant.apache.org/manual/api/org/apache/tools/ant/DirectoryScanner.html#includes">click to see includes method</a></td>
+</tr>
+
+<tr>
+<td align="right">installType</td>
+<td align="left"><code>(Optional)</code> application installation, the value is (1,2,3).<br/>1: public, <br/>2: password installed, <br/>3: invitation to install.<br/>The default is 1 public!</td>
+</tr>
+
+<tr>
+<td align="right">password</td>
+<td align="left">(Optional) set the App installation password, if you do not want to set the password, please pass empty string, or not pass.</td>
+</tr>
+
+<tr>
+<td align="right">updateDescription</td>
+<td align="left"><code>(Optional)</code> version update description, please pass empty string, or not pass.</td>
+</tr>
+
+<tr>
+<td align="right">qrcodePath</td>
+<td align="left"><code>(Optional)</code> If you need to download the qrcode, please enter the save path of the qrcode!otherwise, not download!</td>
+</tr>
+
+<tr>
+<td align="right">envVarsPath</td>
+<td align="left"><code>(Optional)</code> if you need to save info, please enter save file path! otherwise, not save!</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="running-log">Running log</h3>
+
+<p><img src="https://blog-1251473749.cos.ap-beijing.myqcloud.com/jenkins_upload_pgyer/jenkins_log.png" alt="" /></p>
+
+<p>When it runs successfully, you can use the environment variables that are used! for example:</p>
+
+<p><img src="https://blog-1251473749.cos.ap-beijing.myqcloud.com/jenkins_upload_pgyer/upload-pgyer-3.png" alt="" /></p>
+
+<h3 id="pgyer-apiv1-returns-a-description-of-the-field">Pgyer apiV1 returns a description of the field</h3>
+
+<table>
+<thead>
+<tr>
+<th align="right">environment variables</th>
+<th align="left">explanation</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="right">appKey</td>
+<td align="left">App Key</td>
+</tr>
+
+<tr>
+<td align="right">appType</td>
+<td align="left">Application type (1:iOS; 2: Android)</td>
+</tr>
+
+<tr>
+<td align="right">appIsLastest</td>
+<td align="left">Is it the latest version (1: yes; 2: no)</td>
+</tr>
+
+<tr>
+<td align="right">appFileSize</td>
+<td align="left">App file size</td>
+</tr>
+
+<tr>
+<td align="right">appName</td>
+<td align="left">App Name</td>
+</tr>
+
+<tr>
+<td align="right">appVersion</td>
+<td align="left">App Version</td>
+</tr>
+
+<tr>
+<td align="right">appVersionNo</td>
+<td align="left">For Android version Numbers, iOS is always 0</td>
+</tr>
+
+<tr>
+<td align="right">appBuildVersion</td>
+<td align="left">pgyer builds build Numbers that distinguish historical versions</td>
+</tr>
+
+<tr>
+<td align="right">appIdentifier</td>
+<td align="left">Application package name, iOS for BundleId, Android for package name</td>
+</tr>
+
+<tr>
+<td align="right">appIcon</td>
+<td align="left">Application the icon of the key, get the address <a href="http://o1wh05aeh.qnssl.com/image/view/app_icons/[appIcon">http://o1wh05aeh.qnssl.com/image/view/app_icons/[appIcon</a>]</td>
+</tr>
+
+<tr>
+<td align="right">appDescription</td>
+<td align="left">Introduction to the Application</td>
+</tr>
+
+<tr>
+<td align="right">appUpdateDescription</td>
+<td align="left">Application update description</td>
+</tr>
+
+<tr>
+<td align="right">appScreenshots</td>
+<td align="left">Application the screenshot of the key, get the address <a href="http://o1whyeemo.qnssl.com/image/view/app_screenshots/[appScreenshots">http://o1whyeemo.qnssl.com/image/view/app_screenshots/[appScreenshots</a>]</td>
+</tr>
+
+<tr>
+<td align="right">appShortcutUrl</td>
+<td align="left">Application short links</td>
+</tr>
+
+<tr>
+<td align="right">appCreated</td>
+<td align="left">Application upload time</td>
+</tr>
+
+<tr>
+<td align="right">appUpdated</td>
+<td align="left">Application update time</td>
+</tr>
+
+<tr>
+<td align="right">appQRCodeURL</td>
+<td align="left">Application the qr code address</td>
+</tr>
+
+<tr>
+<td align="right">appPgyerURL</td>
+<td align="left">Application pgyer url</td>
+</tr>
+
+<tr>
+<td align="right">appBuildURL</td>
+<td align="left">Application build pgyer url</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="pgyer-apiv2-returns-a-description-of-the-field">Pgyer apiV2 returns a description of the field</h3>
+
+<table>
+<thead>
+<tr>
+<th align="right">environment variables</th>
+<th align="left">explanation</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="right">buildKey</td>
+<td align="left">Build Key is the only index ID that identifies the application</td>
+</tr>
+
+<tr>
+<td align="right">buildType</td>
+<td align="left">Application Type（1:iOS; 2:Android）</td>
+</tr>
+
+<tr>
+<td align="right">buildIsFirst</td>
+<td align="left">Is it the first App? (1: Yes; 2: No;)</td>
+</tr>
+
+<tr>
+<td align="right">buildIsLastest</td>
+<td align="left">Is it the newest? (1: Yes; 2: No;)</td>
+</tr>
+
+<tr>
+<td align="right">buildFileSize</td>
+<td align="left">The size of App</td>
+</tr>
+
+<tr>
+<td align="right">buildName</td>
+<td align="left">App Name</td>
+</tr>
+
+<tr>
+<td align="right">buildVersion</td>
+<td align="left">The default is 1.0 (is the logo that to advertise the application, for example: 1.1, 8.2.1, etc.).</td>
+</tr>
+
+<tr>
+<td align="right">buildVersionNo</td>
+<td align="left">The version number of the uploaded package, the default is 1 (that is, the compiled version number, in general, the compiler will change once the version number. For iOS, is a string type; for Android it is an integer. For example: 1001 , 28 etc.)</td>
+</tr>
+
+<tr>
+<td align="right">buildBuildVersion</td>
+<td align="left">pgyer builds build Numbers that distinguish historical versions</td>
+</tr>
+
+<tr>
+<td align="right">buildIdentifier</td>
+<td align="left">Application package name, iOS for BundleId, Android for package name</td>
+</tr>
+
+<tr>
+<td align="right">buildIcon</td>
+<td align="left">Icon Key of application, URL is <a href="https://www.pgyer.com/image/view/app_icons/[Icon">https://www.pgyer.com/image/view/app_icons/[Icon</a> Key of application]</td>
+</tr>
+
+<tr>
+<td align="right">buildDescription</td>
+<td align="left">Application Description</td>
+</tr>
+
+<tr>
+<td align="right">buildUpdateDescription</td>
+<td align="left">Application Update Description</td>
+</tr>
+
+<tr>
+<td align="right">buildScreenShots</td>
+<td align="left">Application screenshots key, the address is <a href="https://www.pgyer.com/image/view/app_screenshots/[Application">https://www.pgyer.com/image/view/app_screenshots/[Application</a> screenshots key]</td>
+</tr>
+
+<tr>
+<td align="right">buildShortcutUrl</td>
+<td align="left">App Download Url</td>
+</tr>
+
+<tr>
+<td align="right">buildCreated</td>
+<td align="left">App Upload time</td>
+</tr>
+
+<tr>
+<td align="right">buildUpdated</td>
+<td align="left">App Update time</td>
+</tr>
+
+<tr>
+<td align="right">buildQRCodeURL</td>
+<td align="left">App QR code Url</td>
+</tr>
+
+<tr>
+<td align="right">appPgyerURL</td>
+<td align="left">Application pgyer url</td>
+</tr>
+
+<tr>
+<td align="right">appBuildURL</td>
+<td align="left">Application build pgyer url</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="change-log">Change Log</h3>
+
+<p>Version 1.31(2018-05-07)</p>
+
+<ul>
+<li>Upgrade gson 2.8.4</li>
+<li>Optimize upload log</li>
+<li>Change the document image address.</li>
+</ul>
+
+<p>Version 1.30(2018-04-16）</p>
+
+<ul>
+<li>Remove jsoup, and import okhttp that be used network</li>
+<li>Add upload file progress</li>
+<li>Add <a href="https://www.pgyer.com/doc/view/api#uploadApp">pgyer api v2</a></li>
+</ul>
+
+  </div>
+  <footer>
+    <ul class="stats">
+  
+    
+    
+      <li class="categories">
+        <ul>
+          
+            
+            <li><a class="article-category-link" href="https://iamfan.cn/categories/jenkins">Jenkins</a></li>
+          
+        </ul>
+      </li>
+    
+  
+  
+    
+    
+      <li class="tags">
+        <ul>
+          
+            
+            <li><a class="article-category-link" href="https://iamfan.cn/tags/jenkins">Jenkins</a></li>
+          
+        </ul>
+      </li>
+    
+  
+</ul>
+
+  </footer>
+</article>
+
+
+<div class="pagination">
+  
+  
+    <a href="/post/jenkins_upload_to_pgyer/" class="button"><div class="next"><div>上传应用到蒲公英平台的Jenkins插件</div></div></a>
+  
+</div>
+
+
+      </main>
+      <section id="site-sidebar">
+  
+    <section id="recent-posts">
+      <header>
+        <h1>Recent posts</h1>
+      </header>
+      
+      <article class="mini-post">
+        <section>
+          
+
+        </section>
+        <header>
+          <h1><a href="/post/del_jiagu_history/">360加固记录批量删除脚本</a></h1>
+          <time class="published" datetime="">August 2, 2019</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+        <section>
+          
+
+        </section>
+        <header>
+          <h1><a href="/post/">Post</a></h1>
+          <time class="published" datetime="">August 2, 2019</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+        <section>
+          
+
+        </section>
+        <header>
+          <h1><a href="/post/birthday_paradox/">生日悖论</a></h1>
+          <time class="published" datetime="">June 15, 2019</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+        <section>
+          
+
+        </section>
+        <header>
+          <h1><a href="/post/jenkins_video_tutorial/">歪脸网Jenkins视频教程</a></h1>
+          <time class="published" datetime="">October 20, 2018</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+        <section>
+          
+
+        </section>
+        <header>
+          <h1><a href="/post/jenkins_upload_to_pgyer/">上传应用到蒲公英平台的Jenkins插件</a></h1>
+          <time class="published" datetime="">September 15, 2017</time>
+        </header>
+      </article>
+      
+      
+        <a href="/blog/" class="button">See more</a>
+      
+    </section>
+  
+
+  
+    
+      <section id="categories">
+        <header>
+          <h1><a href="/categories">Categories</a></h1>
+        </header>
+        <ul>
+          
+            
+          
+          
+          <li>
+            
+              <a href="/categories/jenkins/">jenkins<span class="count">3</span></a>
+            
+          
+          <li>
+            
+              <a href="/categories/android/">android<span class="count">1</span></a>
+            
+          
+          <li>
+            
+              <a href="/categories/kotlin/">kotlin<span class="count">1</span></a>
+            
+          
+          <li>
+            
+              <a href="/categories/python/">python<span class="count">1</span></a>
+            
+          
+          </li>
+        </ul>
+      </section>
+    
+  
+
+  <section id="mini-bio">
+    <header>
+      <h1>About</h1>
+    </header>
+    <p>PASSIONATE PROGRAMMER</p>
+    <footer>
+      <a href="/about" class="button">Learn More</a>
+    </footer>
+  </section>
+</section>
+
+      <footer id="site-footer">
+  
+      <ul class="socnet-icons">
+        
+
+        <li><a href="//github.com/myroid" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//facebook.com/myroid" target="_blank" rel="noopener" title="Facebook" class="fab fa-facebook"></a></li>
+
+
+
+
+
+
+<li><a href="weixin://contacts/profile/myroid" target="_blank" rel="noopener" title="WeChat" class="fab fa-weixin"></a></li>
+<li><a href="//wpa.qq.com/msgrd?v=3&amp;uin=383094521&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener" title="QQ" class="fab fa-qq"></a></li>
+<li><a href="//instagram.com/deardadafan" target="_blank" rel="noopener" title="Instagram" class="fab fa-instagram"></a></li>
+
+<li><a href="//twitter.com/deardadafan" target="_blank" rel="noopener" title="Twitter" class="fab fa-twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+<li><a href="mailto:myroid@foxmail.com" target="_blank" title="Email" class="far fa-envelope"></a></li>
+
+      </ul>
+  
+  <p class="copyright">
+    
+      &copy; 2019
+      
+        Dear Fan
+      
+    . <br>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.59.1' target='_blank' rel='noopener'>Hugo</a>
+  </p>
+</footer>
+<a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
+
+      
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/html.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/css.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/js.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/toml.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+
+  
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+  <script src=/js/util.js></script>
+  <script src=/js/main.js></script>
+  <script src=/js/add-on.js></script>
+  
+
+
+
+
+
+    </div>
+  </body>
+</html>
