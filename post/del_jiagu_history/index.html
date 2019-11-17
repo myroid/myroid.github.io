@@ -9,7 +9,8 @@
 
   <meta name="generator" content="Hugo 0.59.1" />
   <meta itemprop="name" content="360加固记录批量删除脚本">
-<meta itemprop="description" content="Python实现批量删除360加固历史记录">
+<meta itemprop="description" content="需求背景 得益于360加固的强大且免费，以及在Linux平台下良好的易用性，在过去的三年多时间里，一直在使用Jenkins自动化构建应用的同时进行应用加固，导致产生了3000多条加固记录。官网平台每一页只显示5条，而且不支持批量删除。如果需要手动删除这些记录，除了需要耐心，还需要花费大量的时间。
+注意事项  由于需要实现的功能单一，没有必要实现自动登陆的功能 使用之前需要先在网页端手动登陆后将cookie复制到脚本中  github地址 #!/usr/bin/python # -*- coding: UTF-8 -*- import sys import requests del_app_url = &#39;http://jiagu.360.cn/web/apk/del&#39; app_list_url = &#39;http://jiagu.360.cn/web/apk/list&#39; total_count = 1 # 浏览器登录360加固平台，从控制台复制出cookies，填写到下面单引号中 cookies = dict(cookies_are=&#39;&#39;) def del_app(app): params = {&#39;apkMd5&#39;: app[&#39;apkMd5&#39;]} result = requests.get(del_app_url, cookies=cookies, params=params).json() name = app[&#39;name&#39;].encode(&quot;utf-8&quot;) del_result = result[&#39;errMsg&#39;] if result[&#39;errCode&#39;] == 0 else result[&#39;data&#39;] print (&#39;删除%s加固记录%s&#39; % (name, del_result.encode(&quot;utf-8&quot;))) def get_app_list(): params = dict() params[&#39;limit&#39;] = 10 params[&#39;offset&#39;] = 0 params[&#39;name&#39;] = &#39;&#39; params[&#39;fileName&#39;] = &#39;&#39; return requests.">
 
 
 <meta itemprop="datePublished" content="2019-08-02T19:07:14&#43;00:00" />
@@ -21,7 +22,8 @@
 <meta itemprop="keywords" content="Python," />
 
   <meta property="og:title" content="360加固记录批量删除脚本" />
-<meta property="og:description" content="Python实现批量删除360加固历史记录" />
+<meta property="og:description" content="需求背景 得益于360加固的强大且免费，以及在Linux平台下良好的易用性，在过去的三年多时间里，一直在使用Jenkins自动化构建应用的同时进行应用加固，导致产生了3000多条加固记录。官网平台每一页只显示5条，而且不支持批量删除。如果需要手动删除这些记录，除了需要耐心，还需要花费大量的时间。
+注意事项  由于需要实现的功能单一，没有必要实现自动登陆的功能 使用之前需要先在网页端手动登陆后将cookie复制到脚本中  github地址 #!/usr/bin/python # -*- coding: UTF-8 -*- import sys import requests del_app_url = &#39;http://jiagu.360.cn/web/apk/del&#39; app_list_url = &#39;http://jiagu.360.cn/web/apk/list&#39; total_count = 1 # 浏览器登录360加固平台，从控制台复制出cookies，填写到下面单引号中 cookies = dict(cookies_are=&#39;&#39;) def del_app(app): params = {&#39;apkMd5&#39;: app[&#39;apkMd5&#39;]} result = requests.get(del_app_url, cookies=cookies, params=params).json() name = app[&#39;name&#39;].encode(&quot;utf-8&quot;) del_result = result[&#39;errMsg&#39;] if result[&#39;errCode&#39;] == 0 else result[&#39;data&#39;] print (&#39;删除%s加固记录%s&#39; % (name, del_result.encode(&quot;utf-8&quot;))) def get_app_list(): params = dict() params[&#39;limit&#39;] = 10 params[&#39;offset&#39;] = 0 params[&#39;name&#39;] = &#39;&#39; params[&#39;fileName&#39;] = &#39;&#39; return requests." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://iamfan.cn/post/del_jiagu_history/" />
 <meta property="article:published_time" content="2019-08-02T19:07:14+00:00" />
@@ -29,7 +31,8 @@
 
   <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="360加固记录批量删除脚本"/>
-<meta name="twitter:description" content="Python实现批量删除360加固历史记录"/>
+<meta name="twitter:description" content="需求背景 得益于360加固的强大且免费，以及在Linux平台下良好的易用性，在过去的三年多时间里，一直在使用Jenkins自动化构建应用的同时进行应用加固，导致产生了3000多条加固记录。官网平台每一页只显示5条，而且不支持批量删除。如果需要手动删除这些记录，除了需要耐心，还需要花费大量的时间。
+注意事项  由于需要实现的功能单一，没有必要实现自动登陆的功能 使用之前需要先在网页端手动登陆后将cookie复制到脚本中  github地址 #!/usr/bin/python # -*- coding: UTF-8 -*- import sys import requests del_app_url = &#39;http://jiagu.360.cn/web/apk/del&#39; app_list_url = &#39;http://jiagu.360.cn/web/apk/list&#39; total_count = 1 # 浏览器登录360加固平台，从控制台复制出cookies，填写到下面单引号中 cookies = dict(cookies_are=&#39;&#39;) def del_app(app): params = {&#39;apkMd5&#39;: app[&#39;apkMd5&#39;]} result = requests.get(del_app_url, cookies=cookies, params=params).json() name = app[&#39;name&#39;].encode(&quot;utf-8&quot;) del_result = result[&#39;errMsg&#39;] if result[&#39;errCode&#39;] == 0 else result[&#39;data&#39;] print (&#39;删除%s加固记录%s&#39; % (name, del_result.encode(&quot;utf-8&quot;))) def get_app_list(): params = dict() params[&#39;limit&#39;] = 10 params[&#39;offset&#39;] = 0 params[&#39;name&#39;] = &#39;&#39; params[&#39;fileName&#39;] = &#39;&#39; return requests."/>
 
   
 
@@ -100,22 +103,6 @@
     
       
     
-      
-        <a href="/de" lang="de" class="no-lang link">Deutsch (de)</a>
-      
-    
-      
-        <a href="/fr" lang="fr" class="no-lang link">Français (fr)</a>
-      
-    
-      
-        <a href="/pl" lang="pl" class="no-lang link">Polski (pl)</a>
-      
-    
-      
-        <a href="/pt" lang="pt" class="no-lang link">Português (pt)</a>
-      
-    
   
 </menu>
 
@@ -171,12 +158,12 @@
 
     <div id="wrapper">
       <section id="site-intro">
-  <a href="/"><img src="/imgs/fan.png" class="circle" width="" alt="Hugo Future Imperfect Slim" /></a>
+  <a href="/"><img src="/imgs/fan.png" class="circle" width="" alt="" /></a>
   <header>
     <h1>Passionate Programmer</h1>
   </header>
   <main>
-    <p>Another fine, responsive site template by <a href='http://html5up.net'>HTML5 UP</a>.</p>
+    
   </main>
   
     <footer>
@@ -236,8 +223,6 @@
     
         <h2><a href="/post/del_jiagu_history/">360加固记录批量删除脚本</a></h2>
     
-    
-        <p>Python实现批量删除360加固历史记录</p>
     
 </div>
   <div class="meta">

@@ -9,7 +9,10 @@
 
   <meta name="generator" content="Hugo 0.59.1" />
   <meta itemprop="name" content="生日悖论">
-<meta itemprop="description" content="Kotlin验证生日悖论并扩展实验场景">
+<meta itemprop="description" content="周六的早晨，刷到一条有趣的博文。原文如下： 有关生日悖论的词条
+ 维基百科 百度百科  这是一个很有趣的一个问题，自己就用Kotlin模拟了一遍。
+ 假设有10000000个班级，每个班级人数为23人:
+ package com.birthdayparadox import java.util.* class BirthdayParadox { companion object { private const val classNum = 10000000 private const val studentNum = 23 @JvmStatic fun main(args: Array&lt;String&gt;) { var equalTimes = 0 for (i in 0 until classNum) { val randomArray = createRandomArray(studentNum) if (isSameElementInArray(randomArray)) { equalTimes&#43;&#43; } } val percent = equalTimes * 1.0f / classNum * 100 println(&quot;学生人数为 $studentNum 的 $classNum 个班级中生日相同的概率为：$percent%&quot;) } private fun createRandomArray(size: Int): IntArray { val ia = IntArray(size) for (i in 0 until size) { ia[i] = Random().">
 
 
 <meta itemprop="datePublished" content="2019-06-15T10:25:13&#43;00:00" />
@@ -21,7 +24,10 @@
 <meta itemprop="keywords" content="Kotlin," />
 
   <meta property="og:title" content="生日悖论" />
-<meta property="og:description" content="Kotlin验证生日悖论并扩展实验场景" />
+<meta property="og:description" content="周六的早晨，刷到一条有趣的博文。原文如下： 有关生日悖论的词条
+ 维基百科 百度百科  这是一个很有趣的一个问题，自己就用Kotlin模拟了一遍。
+ 假设有10000000个班级，每个班级人数为23人:
+ package com.birthdayparadox import java.util.* class BirthdayParadox { companion object { private const val classNum = 10000000 private const val studentNum = 23 @JvmStatic fun main(args: Array&lt;String&gt;) { var equalTimes = 0 for (i in 0 until classNum) { val randomArray = createRandomArray(studentNum) if (isSameElementInArray(randomArray)) { equalTimes&#43;&#43; } } val percent = equalTimes * 1.0f / classNum * 100 println(&quot;学生人数为 $studentNum 的 $classNum 个班级中生日相同的概率为：$percent%&quot;) } private fun createRandomArray(size: Int): IntArray { val ia = IntArray(size) for (i in 0 until size) { ia[i] = Random()." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://iamfan.cn/post/birthday_paradox/" />
 <meta property="article:published_time" content="2019-06-15T10:25:13+00:00" />
@@ -29,7 +35,10 @@
 
   <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="生日悖论"/>
-<meta name="twitter:description" content="Kotlin验证生日悖论并扩展实验场景"/>
+<meta name="twitter:description" content="周六的早晨，刷到一条有趣的博文。原文如下： 有关生日悖论的词条
+ 维基百科 百度百科  这是一个很有趣的一个问题，自己就用Kotlin模拟了一遍。
+ 假设有10000000个班级，每个班级人数为23人:
+ package com.birthdayparadox import java.util.* class BirthdayParadox { companion object { private const val classNum = 10000000 private const val studentNum = 23 @JvmStatic fun main(args: Array&lt;String&gt;) { var equalTimes = 0 for (i in 0 until classNum) { val randomArray = createRandomArray(studentNum) if (isSameElementInArray(randomArray)) { equalTimes&#43;&#43; } } val percent = equalTimes * 1.0f / classNum * 100 println(&quot;学生人数为 $studentNum 的 $classNum 个班级中生日相同的概率为：$percent%&quot;) } private fun createRandomArray(size: Int): IntArray { val ia = IntArray(size) for (i in 0 until size) { ia[i] = Random()."/>
 
   
 
@@ -100,22 +109,6 @@
     
       
     
-      
-        <a href="/de" lang="de" class="no-lang link">Deutsch (de)</a>
-      
-    
-      
-        <a href="/fr" lang="fr" class="no-lang link">Français (fr)</a>
-      
-    
-      
-        <a href="/pl" lang="pl" class="no-lang link">Polski (pl)</a>
-      
-    
-      
-        <a href="/pt" lang="pt" class="no-lang link">Português (pt)</a>
-      
-    
   
 </menu>
 
@@ -171,12 +164,12 @@
 
     <div id="wrapper">
       <section id="site-intro">
-  <a href="/"><img src="/imgs/fan.png" class="circle" width="" alt="Hugo Future Imperfect Slim" /></a>
+  <a href="/"><img src="/imgs/fan.png" class="circle" width="" alt="" /></a>
   <header>
     <h1>Passionate Programmer</h1>
   </header>
   <main>
-    <p>Another fine, responsive site template by <a href='http://html5up.net'>HTML5 UP</a>.</p>
+    
   </main>
   
     <footer>
@@ -236,8 +229,6 @@
     
         <h2><a href="/post/birthday_paradox/">生日悖论</a></h2>
     
-    
-        <p>Kotlin验证生日悖论并扩展实验场景</p>
     
 </div>
   <div class="meta">
