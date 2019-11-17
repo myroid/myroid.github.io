@@ -17,10 +17,7 @@
       <pubDate>Sat, 15 Jun 2019 10:25:13 +0000</pubDate>
       
       <guid>https://iamfan.cn/post/birthday_paradox/</guid>
-      <description>周六的早晨，刷到一条有趣的博文。原文如下： 有关生日悖论的词条
- 维基百科 百度百科  这是一个很有趣的一个问题，自己就用Kotlin模拟了一遍。
- 假设有10000000个班级，每个班级人数为23人:
- package com.birthdayparadox import java.util.* class BirthdayParadox { companion object { private const val classNum = 10000000 private const val studentNum = 23 @JvmStatic fun main(args: Array&amp;lt;String&amp;gt;) { var equalTimes = 0 for (i in 0 until classNum) { val randomArray = createRandomArray(studentNum) if (isSameElementInArray(randomArray)) { equalTimes++ } } val percent = equalTimes * 1.0f / classNum * 100 println(&amp;quot;学生人数为 $studentNum 的 $classNum 个班级中生日相同的概率为：$percent%&amp;quot;) } private fun createRandomArray(size: Int): IntArray { val ia = IntArray(size) for (i in 0 until size) { ia[i] = Random().</description>
+      <description></description>
     </item>
     
   </channel>
